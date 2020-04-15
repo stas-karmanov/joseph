@@ -1,13 +1,14 @@
 import { Config } from './config';
 import { LEVELS_SEVERITY, Level } from './levels';
+import { Transport } from './transports/index';
 
-export class Logger {
+class Logger {
     private level: Level;
-    private transports: any[];
+    private transports: Transport[];
 
     constructor(config: Config) {
         this.level = config.level;
-        this.transports = config.transports;
+        this.transports = config.transports.map(transportConstructor => transportConstructor(this.level));
     }
 
     public log(level: Level, message: string) {
@@ -15,7 +16,7 @@ export class Logger {
             return;
         }
 
-        this.transports.forEach(transport => transport.send({ level, message }));
+        this.transports.forEach(transport => transport.send(message));
     }
 
     public error(message: string) {
@@ -46,3 +47,6 @@ export class Logger {
         this.log(Level.SILLY, message);
     }
 }
+
+export type CreateLoggerFn = (config: Config) => Logger;
+export const createLogger: CreateLoggerFn = config => new Logger(config);
