@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "tsc",
+        "build": "tsc && node scripts/copy-package-json.js && node scripts/copy-dist-to-demo.js",
         "lint": "tslint -c tslint.json -p tsconfig.json",
         "start:demo": "npm run build && cd demo && npm start"
     },
@@ -21,6 +21,7 @@
     },
     "homepage": "https://github.com/stas-karmanov/joseph#readme",
     "devDependencies": {
+        "fs-extra": "^9.0.0",
         "husky": "^4.2.5",
         "tslint": "^6.1.1",
         "typescript": "^3.8.3"
