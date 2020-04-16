@@ -2,14 +2,14 @@ import { Level } from '../../levels';
 import { TransportConstructor } from '../transport.models';
 
 export const DEFAULT_THROTTLE_TIME = 2000;
-export const DEFAULT_TIMEOUT = 15000;
+export const DEFAULT_MAX_RECORDS_COUNT = 100;
 
 export interface HttpFactoryArgs {
     url: string;
     method?: string;
     headers?: { [key: string]: string };
     throttleTime?: number;
-    timeout?: number;
+    maxRecordsCount?: number;
 }
 
 export interface HttpTransportAgs extends HttpFactoryArgs {

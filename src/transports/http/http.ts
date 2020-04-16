@@ -1,10 +1,10 @@
 import { ajax } from 'rxjs/ajax';
-import { bufferTime, filter, mergeMap, timeout } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { bufferTime, filter, mergeMap, catchError } from 'rxjs/operators';
+import { Subject, EMPTY } from 'rxjs';
 
 import { Transport } from '../transport.models';
 import { Level } from '../../levels';
-import { HttpFactory, HttpTransportAgs, DEFAULT_THROTTLE_TIME, DEFAULT_TIMEOUT } from './http.models';
+import { HttpFactory, HttpTransportAgs, DEFAULT_THROTTLE_TIME, DEFAULT_MAX_RECORDS_COUNT } from './http.models';
 
 class HttpTransport implements Transport {
     private send$ = new Subject<string>();
@@ -13,16 +13,24 @@ class HttpTransport implements Transport {
         const {
             url,
             method = 'POST',
-            headers = {},
+            headers = null,
             throttleTime = DEFAULT_THROTTLE_TIME,
-            timeout: timeoutTime = DEFAULT_TIMEOUT,
+            maxRecordsCount = DEFAULT_MAX_RECORDS_COUNT,
         } = this.config;
 
         this.send$
             .pipe(
-                bufferTime(throttleTime),
-                filter(logs => Boolean(logs.length)),
-                mergeMap(logs => ajax({ url, method, headers, body: logs }).pipe(timeout(timeoutTime))),
+                bufferTime(throttleTime, null, maxRecordsCount),
+                filter(logRecords => Boolean(logRecords.length)),
+                mergeMap(logRecords =>
+                    ajax({
+                        url,
+                        method,
+                        headers: { 'Content-Type': 'application/json', ...headers },
+                        body: logRecords,
+                        crossDomain: true,
+                    }).pipe(catchError(() => EMPTY)),
+                ),
             )
             .subscribe();
     }

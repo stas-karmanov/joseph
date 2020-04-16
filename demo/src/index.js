@@ -1,6 +1,9 @@
-import { createLogger, consoleFactory, Level } from 'joseph';
+import { createLogger, consoleFactory, httpFactory, Level } from 'joseph';
 
-const logger = createLogger({ level: Level.ERROR, transports: [consoleFactory(Level.DEBUG)] });
+const logger = createLogger({
+    level: Level.ERROR,
+    transports: [consoleFactory(Level.DEBUG), httpFactory({ url: 'http://localhost:3001/logs' })],
+});
 
 document.getElementById('error').addEventListener('click', () => {
     logger.error('button error');
