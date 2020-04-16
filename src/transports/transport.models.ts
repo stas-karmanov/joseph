@@ -1,7 +1,8 @@
 import { Level } from '../levels';
 
 export interface Transport {
-    send(message: string): void;
+    getLevel(): Level;
+    send(level: Level, message: string): void;
 }
 
 export type TransportConstructor = (defaultLoggerLevel: Level) => Transport;

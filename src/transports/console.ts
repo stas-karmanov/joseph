@@ -14,8 +14,12 @@ class ConsoleTransport implements Transport {
 
     constructor(private level: Level) {}
 
-    public send(message: string) {
-        this.levelMap[this.level](`[${this.level}] ${message}`);
+    public getLevel(): Level {
+        return this.level;
+    }
+
+    public send(level: Level, message: string) {
+        this.levelMap[level](`[${level}] ${message}`);
     }
 
     private error(message: string) {
@@ -39,11 +43,11 @@ class ConsoleTransport implements Transport {
     }
 
     private debug(message: string) {
-        console.debug(message);
+        console.info(message);
     }
 
     private silly(message: string) {
-        console.debug(message);
+        console.info(message);
     }
 }
 

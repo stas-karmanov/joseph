@@ -12,11 +12,13 @@ class Logger {
     }
 
     public log(level: Level, message: string) {
-        if (LEVELS_SEVERITY[level] > LEVELS_SEVERITY[this.level]) {
-            return;
-        }
+        this.transports.forEach(transport => {
+            if (LEVELS_SEVERITY[level] > LEVELS_SEVERITY[transport.getLevel()]) {
+                return;
+            }
 
-        this.transports.forEach(transport => transport.send(message));
+            transport.send(level, message);
+        });
     }
 
     public error(message: string) {
