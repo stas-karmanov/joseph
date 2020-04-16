@@ -1,6 +1,6 @@
 import { Config } from './config';
 import { LEVELS_SEVERITY, Level } from './levels';
-import { Transport } from './transports/index';
+import { Transport } from './transports';
 
 class Logger {
     private level: Level;

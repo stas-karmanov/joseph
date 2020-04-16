@@ -1,5 +1,6 @@
-import { Transport, TransportFactory } from './transport.models';
-import { Level } from '../levels';
+import { Transport } from '../transport.models';
+import { Level } from '../../levels';
+import { ConsoleFactory } from './console.models';
 
 class ConsoleTransport implements Transport {
     private readonly levelMap = {
@@ -51,6 +52,6 @@ class ConsoleTransport implements Transport {
     }
 }
 
-export const consoleFactory: TransportFactory = (customLevel?: Level) => (defaultLoggerLevel: Level) => {
+export const consoleFactory: ConsoleFactory = (customLevel?: Level) => (defaultLoggerLevel: Level) => {
     return new ConsoleTransport(customLevel || defaultLoggerLevel);
 };

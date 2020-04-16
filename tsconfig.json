@@ -1,16 +1,17 @@
 {
-	"compilerOptions": {
-		"module": "es2015",
-		"target": "es2015",
-		"noImplicitAny": true,
-		"removeComments": true,
-		"declaration": true,
-		"preserveConstEnums": true,
-		"allowSyntheticDefaultImports": true,
-		"sourceMap": true,
+    "compilerOptions": {
+        "module": "es2015",
+        "target": "es2015",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "declaration": true,
+        "preserveConstEnums": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
         "lib": ["es2015", "dom"],
-        "outDir": "dist"
-	},
-	"exclude": ["node_modules", "**/*.spec.ts"],
-	"files": ["./src/index.ts"]
+        "outDir": "dist",
+        "moduleResolution": "node",
+    },
+    "exclude": ["node_modules", "**/*.spec.ts"],
+    "files": ["./src/index.ts"]
 }

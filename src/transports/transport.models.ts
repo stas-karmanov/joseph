@@ -6,4 +6,3 @@ export interface Transport {
 }
 
 export type TransportConstructor = (defaultLoggerLevel: Level) => Transport;
-export type TransportFactory = (customLevel?: Level) => TransportConstructor;
