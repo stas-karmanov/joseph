@@ -1,4 +1,4 @@
-import { createLogger, consoleFactory, httpFactory, Level } from 'joseph';
+import { createLogger, consoleFactory, httpFactory, Level } from 'joseph-log';
 
 const logger = createLogger({
     level: Level.ERROR,

@@ -1,5 +1,5 @@
 {
-    "name": "joseph",
+    "name": "joseph-log",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -11,15 +11,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/stas-karmanov/joseph.git"
+        "url": "git+https://github.com/stas-karmanov/joseph-log.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/stas-karmanov/joseph/issues"
+        "url": "https://github.com/stas-karmanov/joseph-log/issues"
     },
-    "homepage": "https://github.com/stas-karmanov/joseph#readme",
+    "homepage": "https://github.com/stas-karmanov/joseph-log#readme",
     "devDependencies": {
         "fs-extra": "^9.0.0",
         "husky": "^4.2.5",
