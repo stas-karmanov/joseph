@@ -1,4 +1,6 @@
 import { Level } from '../../levels';
-import { TransportConstructor } from '../transport.models';
+import { TransportFactory } from '../transport.models';
 
-export type ConsoleFactory = (customLevel?: Level) => TransportConstructor;
+export type ConsoleFactoryConstructor = (customLevel?: Level) => TransportFactory;
+
+export type LevelMap = { [level: string]: (message: string) => void };

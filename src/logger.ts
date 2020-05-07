@@ -8,7 +8,7 @@ class Logger {
 
     constructor(config: Config) {
         this.level = config.level;
-        this.transports = config.transports.map(transportConstructor => transportConstructor(this.level));
+        this.transports = config.transports.map(transportFactory => transportFactory(this.level));
     }
 
     public log(level: Level, message: string) {

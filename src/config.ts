@@ -1,7 +1,7 @@
 import { Level } from './levels';
-import { TransportConstructor } from './transports';
+import { TransportFactory } from './transports';
 
 export interface Config {
     level: Level;
-    transports: TransportConstructor[];
+    transports: TransportFactory[];
 }

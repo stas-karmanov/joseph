@@ -5,4 +5,4 @@ export interface Transport {
     send(level: Level, message: string): void;
 }
 
-export type TransportConstructor = (defaultLoggerLevel: Level) => Transport;
+export type TransportFactory = (defaultLoggerLevel: Level) => Transport;

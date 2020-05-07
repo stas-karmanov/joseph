@@ -1,8 +1,8 @@
-import { createLogger, consoleFactory, httpFactory, Level } from 'joseph-log';
+import { createLogger, createConsole, createHttp, Level } from 'joseph-log';
 
 const logger = createLogger({
     level: Level.ERROR,
-    transports: [consoleFactory(Level.DEBUG), httpFactory({ url: 'http://localhost:3001/logs' })],
+    transports: [createConsole(Level.DEBUG), createHttp({ url: 'http://localhost:3001/logs' })],
 });
 
 document.getElementById('error').addEventListener('click', () => {

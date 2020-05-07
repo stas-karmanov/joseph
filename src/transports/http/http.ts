@@ -4,12 +4,17 @@ import { Subject, EMPTY } from 'rxjs';
 
 import { Transport } from '../transport.models';
 import { Level } from '../../levels';
-import { HttpFactory, HttpTransportAgs, DEFAULT_THROTTLE_TIME, DEFAULT_MAX_RECORDS_COUNT } from './http.models';
+import {
+    HttpFactoryConstructor,
+    HttpTransportArgs,
+    DEFAULT_THROTTLE_TIME,
+    DEFAULT_MAX_RECORDS_COUNT,
+} from './http.models';
 
 class HttpTransport implements Transport {
     private send$ = new Subject<string>();
 
-    constructor(private config: HttpTransportAgs) {
+    constructor(private config: HttpTransportArgs) {
         const {
             url,
             method = 'POST',
@@ -40,10 +45,14 @@ class HttpTransport implements Transport {
     }
 
     public send(level: Level, message: string) {
-        this.send$.next(`[${level}] ${message}`);
+        this.send$.next(JSON.stringify({ level, message, timestamp: new Date().toUTCString() }));
     }
 }
 
-export const httpFactory: HttpFactory = args => (defaultLoggerLevel: Level) => {
+export const createHttp: HttpFactoryConstructor = args => (defaultLoggerLevel: Level) => {
+    if (!args.level && !defaultLoggerLevel) {
+        throw new Error('logging level must be provided!');
+    }
+
     return new HttpTransport({ ...args, level: args.level || defaultLoggerLevel });
 };

@@ -1,9 +1,9 @@
 import { Transport } from '../transport.models';
 import { Level } from '../../levels';
-import { ConsoleFactory } from './console.models';
+import { ConsoleFactoryConstructor, LevelMap } from './console.models';
 
 class ConsoleTransport implements Transport {
-    private readonly levelMap = {
+    private readonly levelMap: LevelMap = {
         [Level.ERROR]: this.error.bind(this),
         [Level.WARN]: this.warn.bind(this),
         [Level.INFO]: this.info.bind(this),
@@ -20,7 +20,7 @@ class ConsoleTransport implements Transport {
     }
 
     public send(level: Level, message: string) {
-        this.levelMap[level](`[${level}] ${message}`);
+        this.levelMap[level](JSON.stringify({ level, message, timestamp: new Date().toUTCString() }));
     }
 
     private error(message: string) {
@@ -52,6 +52,6 @@ class ConsoleTransport implements Transport {
     }
 }
 
-export const consoleFactory: ConsoleFactory = (customLevel?: Level) => (defaultLoggerLevel: Level) => {
+export const createConsole: ConsoleFactoryConstructor = (customLevel?: Level) => (defaultLoggerLevel: Level) => {
     return new ConsoleTransport(customLevel || defaultLoggerLevel);
 };
